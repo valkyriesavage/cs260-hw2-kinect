@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AB6470F4-8587-4A4E-9F54-978B879D4EF5}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KinectExperiment</RootNamespace>
+    <AssemblyName>KinectExperiment</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Research.Kinect, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="menuitem.cs" />
+    <Compile Include="TouchButton.xaml.cs">
+      <DependentUpon>TouchButton.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="TouchButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="menuicons\canonical.xcf" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="menuicons\abbeyroad.jpg" />
+    <Resource Include="menuicons\abbeyroadselected.jpg" />
+    <Resource Include="menuicons\aim.jpg" />
+    <Resource Include="menuicons\aimselected.jpg" />
+    <Resource Include="menuicons\angrybirds.jpg" />
+    <Resource Include="menuicons\angrybirdsselected.jpg" />
+    <Resource Include="menuicons\anniehall.jpg" />
+    <Resource Include="menuicons\anniehallselected.jpg" />
+    <Resource Include="menuicons\apps.jpg" />
+    <Resource Include="menuicons\appsselected.jpg" />
+    <Resource Include="menuicons\back.jpg" />
+    <Resource Include="menuicons\backselected.jpg" />
+    <Resource Include="menuicons\carnivalgames.jpg" />
+    <Resource Include="menuicons\carnivalgamesselected.jpg" />
+    <Resource Include="menuicons\dancecentral.jpg" />
+    <Resource Include="menuicons\dancecentralselected.jpg" />
+    <Resource Include="menuicons\darksideofthemoon.jpg" />
+    <Resource Include="menuicons\darksideofthemoonselected.jpg" />
+    <Resource Include="menuicons\emperorsnewgroove.jpg" />
+    <Resource Include="menuicons\emperorsnewgrooveselected.jpg" />
+    <Resource Include="menuicons\facebook.jpg" />
+    <Resource Include="menuicons\facebookselected.jpg" />
+    <Resource Include="menuicons\games.jpg" />
+    <Resource Include="menuicons\gamesselected.jpg" />
+    <Resource Include="menuicons\googleplus.jpg" />
+    <Resource Include="menuicons\googleplusselected.jpg" />
+    <Resource Include="menuicons\hitchhikersguide.jpg" />
+    <Resource Include="menuicons\hitchhikersguideselected.jpg" />
+    <Resource Include="menuicons\kinectimals.jpg" />
+    <Resource Include="menuicons\kinectimalsselected.jpg" />
+    <Resource Include="menuicons\kinectsports.jpg" />
+    <Resource Include="menuicons\kinectsportsselected.jpg" />
+    <Resource Include="menuicons\kungfupanda.jpg" />
+    <Resource Include="menuicons\kungfupandaselected.jpg" />
+    <Resource Include="menuicons\movies.jpg" />
+    <Resource Include="menuicons\moviesselected.jpg" />
+    <Resource Include="menuicons\music.jpg" />
+    <Resource Include="menuicons\musicselected.jpg" />
+    <Resource Include="menuicons\nevermind.jpg" />
+    <Resource Include="menuicons\nevermindselected.jpg" />
+    <Resource Include="menuicons\oldyeller.jpg" />
+    <Resource Include="menuicons\oldyellerselected.jpg" />
+    <Resource Include="menuicons\rollingstones.jpg" />
+    <Resource Include="menuicons\rollingstonesselected.jpg" />
+    <Resource Include="menuicons\settings.jpg" />
+    <Resource Include="menuicons\settingsselected.jpg" />
+    <Resource Include="menuicons\thematrix.jpg" />
+    <Resource Include="menuicons\thematrixselected.jpg" />
+    <Resource Include="menuicons\twitter.jpg" />
+    <Resource Include="menuicons\twitterselected.jpg" />
+    <Resource Include="menuicons\yelp.jpg" />
+    <Resource Include="menuicons\yelpselected.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
