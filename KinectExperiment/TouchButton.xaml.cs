@@ -23,17 +23,26 @@ namespace KinectExperiment
     public partial class TouchButton : UserControl
     {
         bool pointOn = false; // true if pointer is over this box
-        public String content;
+        public MenuItem menuItem;
 
         public static readonly RoutedEvent HandEnterEvent = EventManager.RegisterRoutedEvent(
              "HandEnter", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TouchButton));
         public static readonly RoutedEvent HandLeaveEvent = EventManager.RegisterRoutedEvent(
              "HandLeave", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TouchButton));
 
-        public TouchButton()
+        public TouchButton(MenuItem mi)
         {
             InitializeComponent();
-            content = "test";
+            menuItem = mi;
+
+            BitmapImage img = new BitmapImage();
+            img.BeginInit();
+            img.UriSource = new Uri("menuicons/" + mi.icon, UriKind.Relative);
+            img.EndInit();
+            rect.Source = img;
+            border.Fill = Brushes.Black;
+            border.Stroke = Brushes.White;
+            border.StrokeThickness = 19;
         }
 
         public event RoutedEventHandler HandEnter
@@ -50,6 +59,12 @@ namespace KinectExperiment
 
         public void hoverOn(object sender, RoutedEventArgs e)
         {
+            BitmapImage img = new BitmapImage();
+            img.BeginInit();
+            img.UriSource = new Uri("menuicons/" + menuItem.selectedIcon, UriKind.Relative);
+            img.EndInit();
+            rect.Source = img;
+
             border.Fill = Brushes.Gray;
             pointOn = true;
             fade();
@@ -69,16 +84,21 @@ namespace KinectExperiment
         {
             if (pointOn)
             {
-                rect.Fill = Brushes.Brown;
-                Window parentWindow = Window.GetWindow(this);
-
-                parentWindow.RaiseEvent(new RoutedEventArgs(MainWindow.MenuLoadEvent, content));
+                //rect.Fill = Brushes.Brown;
+                RaiseEvent(new RoutedEventArgs(MainWindow.MenuLoadEvent, this));
             }
         }
 
         public void hoverOff(object sender, RoutedEventArgs e)
         {
             myStoryBoard.Stop(this);
+
+            BitmapImage img = new BitmapImage();
+            img.BeginInit();
+            img.UriSource = new Uri("menuicons/" + menuItem.icon, UriKind.Relative);
+            img.EndInit();
+            rect.Source = img;
+
             pointOn = false;
             border.Fill = Brushes.White;
         }
@@ -91,7 +111,7 @@ namespace KinectExperiment
             double w1 = 0;
             double w2 = 18;
             DoubleAnimation anima = new DoubleAnimation();
-            anima.Duration = new Duration(TimeSpan.FromSeconds(3.0));
+            anima.Duration = new Duration(TimeSpan.FromSeconds(1.5));
             anima.From = w1;
             anima.To = w2;
             anima.FillBehavior = FillBehavior.HoldEnd;

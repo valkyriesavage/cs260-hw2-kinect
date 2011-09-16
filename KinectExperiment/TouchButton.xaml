@@ -7,6 +7,6 @@
              d:DesignHeight="200" d:DesignWidth="266">
     <Grid>
         <Rectangle Name="border" Width="266" Height="200" Fill="White" Panel.ZIndex="0" Stroke="White" StrokeThickness="20.0" />
-        <Rectangle Name="rect" Width="226" Height="160" Fill="Cyan" Panel.ZIndex="1" Loaded="TouchButton_Loaded" />
+        <Image Name="rect" Width="226" Height="160" Panel.ZIndex="1" Loaded="TouchButton_Loaded" />
     </Grid>
 </UserControl>

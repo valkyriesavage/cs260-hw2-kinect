@@ -32,6 +32,7 @@ namespace KinectExperiment
             pointer.Height = 40;
             pointer.Fill = Brushes.Purple;
             pointer.Opacity = .5;
+            Canvas.SetZIndex(pointer, 5);
         }
 
         Runtime nui;
@@ -47,39 +48,18 @@ namespace KinectExperiment
 
         List<TouchButton> tbs = new List<TouchButton>();
 
-        private void drawBoxes()
+        private void drawMenu(string menuName)
         {
-            // Define the Columns
-            ColumnDefinition colDef1 = new ColumnDefinition();
-            ColumnDefinition colDef2 = new ColumnDefinition();
-            ColumnDefinition colDef3 = new ColumnDefinition();
-            grid.ColumnDefinitions.Add(colDef1);
-            grid.ColumnDefinitions.Add(colDef2);
-            grid.ColumnDefinitions.Add(colDef3);
-
-            // Define the Rows
-            RowDefinition rowDef1 = new RowDefinition();
-            RowDefinition rowDef2 = new RowDefinition();
-            RowDefinition rowDef3 = new RowDefinition();
-            grid.RowDefinitions.Add(rowDef1);
-            grid.RowDefinitions.Add(rowDef2);
-            grid.RowDefinitions.Add(rowDef3);
-
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < 3; j++)
+            Menu menuLoaded = new Menu(menuName);
+            foreach (MenuItem mi in menuLoaded.menuItems) {
+                TouchButton tb = new TouchButton(mi);
+                if (mi.name == "back")
                 {
-                    TouchButton tb = new TouchButton();
-
-                    Grid.SetColumn(tb, j);
-                    Grid.SetRow(tb, i);
-                    if (i != 2 || j != 2) 
-                    {
-                        tb.content = i + " " + j;
-                        grid.Children.Add(tb);
-                        tbs.Add(tb);
-                    }
+                    //tb.rect.Fill = Brushes.HotPink;
                 }
+                Canvas.SetLeft(tb, mi.getUpperLeft().X);
+                Canvas.SetTop(tb, mi.getUpperLeft().Y);
+                canvas.Children.Add(tb);
             }
             return;
         }
@@ -92,14 +72,41 @@ namespace KinectExperiment
 
         private void changeMenu(object sender, RoutedEventArgs e)
         {
-            grid.Children.Clear();
+            Trace.WriteLine(e.Source.GetType());
+            if (e.Source is TouchButton)
+            {
+                List<UIElement> toRemove = new List<UIElement>();
+                foreach (UIElement uie in canvas.Children)
+                {
+                    if (uie is TouchButton)
+                    {
+                        toRemove.Add(uie);
+                    }
+                }
+                foreach (UIElement uie in toRemove)
+                {
+                    canvas.Children.Remove(uie);
+                }
+                TouchButton tb = (TouchButton)e.Source;
+                string menuToDraw;
+                if (tb.menuItem.name == "back")
+                {
+                    menuToDraw = tb.menuItem.previousMenu;
+                }
+                else
+                {
+                    menuToDraw = tb.menuItem.name;
+                }
+                drawMenu(menuToDraw);
+            }
+
             return;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             canvas.Children.Add(pointer);
-            drawBoxes();
+            drawMenu("root");
             nui = new Runtime();
             try
             {
@@ -195,7 +202,7 @@ namespace KinectExperiment
                     if (hit is TouchButton)
                     {
                         TouchButton hitTB = (TouchButton)hit;
-                        if (hitTB != currentlySelected)
+                        if (!Object.ReferenceEquals(hitTB,currentlySelected))
                         {
                             if (currentlySelected != null)
                             {
@@ -205,13 +212,12 @@ namespace KinectExperiment
                             currentlySelected = hitTB;
                         }
                     }
-                    else if (hit == null)
+                    else
                     {
                         Trace.WriteLine(handPoint);
                         if (currentlySelected != null) { currentlySelected.RaiseEvent(new RoutedEventArgs(TouchButton.HandLeaveEvent)); }
                         currentlySelected = null;
                     }
-
                 }
             }
         }
