@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="KinectExperiment.TouchButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="266">
+    <Grid>
+        <Rectangle Name="border" Width="266" Height="200" Fill="White" Panel.ZIndex="0" Stroke="White" StrokeThickness="20.0" />
+        <Rectangle Name="rect" Width="226" Height="160" Fill="Cyan" Panel.ZIndex="1" Loaded="TouchButton_Loaded" />
+    </Grid>
+</UserControl>
