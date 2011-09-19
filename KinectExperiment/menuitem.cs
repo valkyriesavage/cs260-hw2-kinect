@@ -119,6 +119,10 @@ public class MenuItem
     chooseDrawLocation();
   }
 
+  public boolean isIntersecting(Point p) {
+    return ((p.X > upperLeft.X) && (p.X < upperLeft.X + WIDTH)) && ((p.Y > upperLeft.Y) && (p.Y < upperLeft.Y + HEIGHT));
+  }
+
   private void chooseDrawLocation() {
     // select a reasonable location to draw
     // based on the order in the menu list
@@ -148,14 +152,4 @@ public class MenuItem
     this.selected = selected;
   }
 
-  /*public void draw(Graphics g) {
-    if (this.selected && this.selectedIcon) {
-      icon = new Bitmap(this.selectedIcon);
-    } else if (this.icon) {
-      icon = new Bitmap(this.icon);
-    } else {
-      //do something with text
-    }
-    g.DrawImage(icon, new RectangleF(upperLeft.X, upperLeft.Y, WIDTH, HEIGHT));
-  }*/
 }

@@ -103,6 +103,10 @@ namespace KinectExperiment
             border.Fill = Brushes.White;
         }
 
+        public boolean isIntersecting (Point p) {
+            return this.menuItem.isIntersecting(p);
+        }
+
         private void TouchButton_Loaded(object sender, RoutedEventArgs e)
         {
             this.HandEnter += new RoutedEventHandler(hoverOn);

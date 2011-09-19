@@ -166,6 +166,20 @@ namespace KinectExperiment
 
         TouchButton currentlySelected = null;
 
+        TouchButton getHit(Point handPoint) {
+          TouchButton hit = null;
+
+          foreach (UIElement uie in canvas.Children) {
+            if (uie is TouchButton) {
+                if ((TouchButton)uie.isIntersecting(handPoint)) {
+                    hit = uie;
+                }
+            }
+          }
+
+          return hit;
+        }
+
         void nui_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
         {
             SkeletonFrame skeletonFrame = e.SkeletonFrame;
@@ -186,20 +200,10 @@ namespace KinectExperiment
                     Canvas.SetTop(pointer, ypos-20);
 
                     Point handPoint = new Point(xpos, ypos);
-                    HitTestResult htr = VisualTreeHelper.HitTest(canvas, handPoint);
 
-                    Visual hit = null;
-                    if (htr != null)
-                    {
-                        hit = (Visual)htr.VisualHit;
-                    }
+                    TouchButton hit = getHit(handPoint);
 
-                    while (hit != null && !(hit is TouchButton))
-                    {
-                        hit = (Visual)VisualTreeHelper.GetParent(hit);
-                    }
-
-                    if (hit is TouchButton)
+                    if (hit != null)
                     {
                         TouchButton hitTB = (TouchButton)hit;
                         if (!Object.ReferenceEquals(hitTB,currentlySelected))
