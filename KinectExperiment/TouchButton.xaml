@@ -5,8 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="266">
-    <Grid>
-        <Rectangle Name="border" Width="266" Height="200" Panel.ZIndex="0" Stroke="White" StrokeThickness="19" Fill="Black" />
-        <Image Name="rect" Width="226" Height="160" Panel.ZIndex="1" Loaded="TouchButton_Loaded" />
-    </Grid>
+    <Canvas Width="266">
+        <Rectangle Name="border" Width="266" Height="200" Panel.ZIndex="0" Stroke="White" StrokeThickness="19" Fill="Black"/>
+        <TextBlock Name="text" Width="206" Height="140" FontSize="32" TextWrapping="Wrap" Canvas.Top="30" Canvas.Left="30" Panel.ZIndex="6" />
+        <Rectangle Name="textRect" Width="226" Height="160" Visibility="Collapsed"  Fill="White" Canvas.Top="20" Canvas.Left="20"  Panel.ZIndex="5"/>
+        <Image Name="rect" Width="226" Height="160" Canvas.Top="20" Canvas.Left="20" Panel.ZIndex="1" Loaded="TouchButton_Loaded" />
+    </Canvas>
 </UserControl>

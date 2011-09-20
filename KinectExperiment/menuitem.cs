@@ -17,32 +17,32 @@ public class Menu {
       menuItems.Add(new MenuItem("apps", "apps.jpg", "appsselected.jpg", menuItems.Count, ""));
       menuItems.Add(new MenuItem("settings", "settings.jpg", "settingsselected.jpg", menuItems.Count, ""));
     } else if (name == "games") {
-      menuItems.Add(new MenuItem("angrybirds", "angrybirds.jpg", "angrybirdsselected.jpg", menuItems.Count, "root"));
-      menuItems.Add(new MenuItem("carnivalgames", "carnivalgames.jpg", "carnivalgamesselected.jpg", menuItems.Count, "root"));
-      menuItems.Add(new MenuItem("dancecentral", "dancecentral.jpg", "dancecentralselected.jpg", menuItems.Count, "root"));
+      menuItems.Add(new MenuItem("angry birds", "angrybirds.jpg", "angrybirdsselected.jpg", menuItems.Count, "root"));
+      menuItems.Add(new MenuItem("carnival games", "carnivalgames.jpg", "carnivalgamesselected.jpg", menuItems.Count, "root"));
+      menuItems.Add(new MenuItem("dance central", "dancecentral.jpg", "dancecentralselected.jpg", menuItems.Count, "root"));
       menuItems.Add(new MenuItem("kinectimals", "kinectimals.jpg", "kinectimalsselected.jpg", menuItems.Count, "rpot"));
-      menuItems.Add(new MenuItem("kinectsports", "kinectsports.jpg", "kinectsportsselected.jpg", menuItems.Count, "root"));
-      menuItems.Add(new MenuItem("kungfupanda", "kungfupanda.jpg", "kungfupandaselected.jpg", menuItems.Count, "root"));
+      menuItems.Add(new MenuItem("kinect sports", "kinectsports.jpg", "kinectsportsselected.jpg", menuItems.Count, "root"));
+      menuItems.Add(new MenuItem("kung fu panda", "kungfupanda.jpg", "kungfupandaselected.jpg", menuItems.Count, "root"));
       menuItems.Add(new MenuItem("back", "back.jpg", "backselected.jpg", menuItems.Count, "root"));
     } else if (name == "apps") {
       menuItems.Add(new MenuItem("aim", "aim.jpg", "aimselected.jpg", menuItems.Count, "root"));
       menuItems.Add(new MenuItem("facebook", "facebook.jpg", "facebookselected.jpg", menuItems.Count, "root"));
-      menuItems.Add(new MenuItem("googleplus", "googleplus.jpg", "googleplusselected.jpg", menuItems.Count, "root"));
+      menuItems.Add(new MenuItem("google+", "googleplus.jpg", "googleplusselected.jpg", menuItems.Count, "root"));
       menuItems.Add(new MenuItem("twitter", "twitter.jpg", "twitterselected.jpg", menuItems.Count, "root"));
       menuItems.Add(new MenuItem("yelp", "yelp.jpg", "yelpselected.jpg", menuItems.Count, "root"));
       menuItems.Add(new MenuItem("back", "back.jpg", "backselected.jpg", menuItems.Count, "root"));
     } else if (name == "movies") {
-      menuItems.Add(new MenuItem("anniehall", "anniehall.jpg", "anniehallselected.jpg", menuItems.Count, "root"));
-      menuItems.Add(new MenuItem("emperorsnewgroove", "emperorsnewgroove.jpg", "emperorsnewgrooveselected.jpg", menuItems.Count, "root"));
-      menuItems.Add(new MenuItem("hitchhikersguide", "hitchhikersguide.jpg", "hitchhikersguideselected.jpg", menuItems.Count, "root"));
-      menuItems.Add(new MenuItem("oldyeller", "oldyeller.jpg", "oldyellerselected.jpg", menuItems.Count, "root"));
-      menuItems.Add(new MenuItem("thematrix", "thematrix.jpg", "thematrixselected.jpg", menuItems.Count, "root"));
+      menuItems.Add(new MenuItem("annie hall", "anniehall.jpg", "anniehallselected.jpg", menuItems.Count, "root"));
+      menuItems.Add(new MenuItem("emperor's new groove", "emperorsnewgroove.jpg", "emperorsnewgrooveselected.jpg", menuItems.Count, "root"));
+      menuItems.Add(new MenuItem("hitchhikers' guide", "hitchhikersguide.jpg", "hitchhikersguideselected.jpg", menuItems.Count, "root"));
+      menuItems.Add(new MenuItem("old yeller", "oldyeller.jpg", "oldyellerselected.jpg", menuItems.Count, "root"));
+      menuItems.Add(new MenuItem("the matrix", "thematrix.jpg", "thematrixselected.jpg", menuItems.Count, "root"));
       menuItems.Add(new MenuItem("back", "back.jpg", "backselected.jpg", menuItems.Count, "root"));
     } else if (name == "music") {
-      menuItems.Add(new MenuItem("abbeyroad", "abbeyroad.jpg", "abbeyroadselected.jpg", menuItems.Count, "root"));
-      menuItems.Add(new MenuItem("darksideofthemoon", "darksideofthemoon.jpg", "darksideofthemoonselected.jpg", menuItems.Count, "root"));
+      menuItems.Add(new MenuItem("abbey road", "abbeyroad.jpg", "abbeyroadselected.jpg", menuItems.Count, "root"));
+      menuItems.Add(new MenuItem("dark side of the moon", "darksideofthemoon.jpg", "darksideofthemoonselected.jpg", menuItems.Count, "root"));
       menuItems.Add(new MenuItem("nevermind", "nevermind.jpg", "nevermindselected.jpg", menuItems.Count, "root"));
-      menuItems.Add(new MenuItem("rollingstones", "rollingstones.jpg", "rollingstonesselected.jpg", menuItems.Count, "root"));
+      menuItems.Add(new MenuItem("rolling stones", "rollingstones.jpg", "rollingstonesselected.jpg", menuItems.Count, "root"));
       menuItems.Add(new MenuItem("back", "back.jpg", "backselected.jpg", menuItems.Count, "root"));
     } else if (name == "abbeyroad") {
       menuItems.Add(new MenuItem("Come Together", menuItems.Count));
@@ -96,8 +96,6 @@ public class MenuItem
   static int ROWHEIGHT = 200;
   static int COLWIDTH = 266;
 
-  static int MARGIN = 20;
-
   public string name;
   public string icon = null;
   public string selectedIcon = null;
@@ -131,8 +129,8 @@ public class MenuItem
     // select a reasonable location to draw
     // based on the order in the menu list
     this.upperLeft = new Point();
-    upperLeft.Y = ((int)(order/3))*ROWHEIGHT + MARGIN;
-    upperLeft.X = (order % 3)*COLWIDTH + MARGIN;
+    upperLeft.Y = ((int)(order/3))*ROWHEIGHT;
+    upperLeft.X = (order % 3)*COLWIDTH;
   }
 
   public Point getUpperLeft()

@@ -35,11 +35,19 @@ namespace KinectExperiment
             InitializeComponent();
             menuItem = mi;
 
-            BitmapImage img = new BitmapImage();
-            img.BeginInit();
-            img.UriSource = new Uri("menuicons/" + mi.icon, UriKind.Relative);
-            img.EndInit();
-            rect.Source = img;
+            if (menuItem.icon == null)
+            {
+                text.Text = menuItem.name;
+                textRect.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                BitmapImage img = new BitmapImage();
+                img.BeginInit();
+                img.UriSource = new Uri("menuicons/" + mi.icon, UriKind.Relative);
+                img.EndInit();
+                rect.Source = img;
+            }
         }
 
         public event RoutedEventHandler HandEnter
@@ -56,12 +64,19 @@ namespace KinectExperiment
 
         public void hoverOn(object sender, RoutedEventArgs e)
         {
-            BitmapImage img = new BitmapImage();
-            img.BeginInit();
-            img.UriSource = new Uri("menuicons/" + menuItem.selectedIcon, UriKind.Relative);
-            img.EndInit();
-            rect.Source = img;
-
+            if (menuItem.icon == null)
+            {
+                textRect.Fill = Brushes.Black;
+                text.Foreground = Brushes.White;
+            }
+            else
+            {
+                BitmapImage img = new BitmapImage();
+                img.BeginInit();
+                img.UriSource = new Uri("menuicons/" + menuItem.selectedIcon, UriKind.Relative);
+                img.EndInit();
+                rect.Source = img;
+            }
             border.Fill = Brushes.Gray;
             pointOn = true;
             fade();
@@ -84,14 +99,20 @@ namespace KinectExperiment
 
         public void hoverOff(object sender, RoutedEventArgs e)
         {
+            if (menuItem.icon == null)
+            {
+                text.Foreground = Brushes.Black;
+                textRect.Fill = Brushes.White;
+            }
+            else
+            {
+                BitmapImage img = new BitmapImage();
+                img.BeginInit();
+                img.UriSource = new Uri("menuicons/" + menuItem.icon, UriKind.Relative);
+                img.EndInit();
+                rect.Source = img;
+            }
             myStoryBoard.Stop(this);
-
-            BitmapImage img = new BitmapImage();
-            img.BeginInit();
-            img.UriSource = new Uri("menuicons/" + menuItem.icon, UriKind.Relative);
-            img.EndInit();
-            rect.Source = img;
-
             pointOn = false;
         }
 
