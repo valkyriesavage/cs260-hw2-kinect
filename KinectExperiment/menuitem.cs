@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 
 public class Menu {
-  bool root;
+  private bool leaf = false;
   public string name;
 
   public List<MenuItem> menuItems;
@@ -11,7 +11,6 @@ public class Menu {
   public Menu(string name) {
     menuItems = new List<MenuItem>();
     if (name=="root") {
-      root = true;
       menuItems.Add(new MenuItem("games", "games.jpg", "gamesselected.jpg", menuItems.Count, ""));
       menuItems.Add(new MenuItem("movies", "movies.jpg", "moviesselected.jpg", menuItems.Count, ""));
       menuItems.Add(new MenuItem("music", "music.jpg", "musicselected.jpg", menuItems.Count, ""));
@@ -79,8 +78,13 @@ public class Menu {
       menuItems.Add(new MenuItem("Soul Survivor", menuItems.Count));
       menuItems.Add(new MenuItem("back", "back.jpg", "backselected.jpg", menuItems.Count, "music"));
     } else {
-      // huh?
+        leaf = true;
     }
+  }
+
+  public bool isLeaf()
+  {
+      return leaf;
   }
 }
 
@@ -119,7 +123,7 @@ public class MenuItem
     chooseDrawLocation();
   }
 
-  public boolean isIntersecting(Point p) {
+  public bool isIntersecting(Point p) {
     return ((p.X > upperLeft.X) && (p.X < upperLeft.X + WIDTH)) && ((p.Y > upperLeft.Y) && (p.Y < upperLeft.Y + HEIGHT));
   }
 

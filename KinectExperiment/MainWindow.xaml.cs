@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Research.Kinect.Nui;
 using System.Diagnostics;
+using System.Windows.Threading;
 
 namespace KinectExperiment
 {
@@ -51,22 +52,46 @@ namespace KinectExperiment
         private void drawMenu(string menuName)
         {
             Menu menuLoaded = new Menu(menuName);
-            foreach (MenuItem mi in menuLoaded.menuItems) {
-                TouchButton tb = new TouchButton(mi);
-                if (mi.name == "back")
-                {
-                    //tb.rect.Fill = Brushes.HotPink;
-                }
-                Canvas.SetLeft(tb, mi.getUpperLeft().X);
-                Canvas.SetTop(tb, mi.getUpperLeft().Y);
-                canvas.Children.Add(tb);
+
+            if (menuLoaded.isLeaf())
+            {
+                TextBlock successText = new TextBlock();
+                successText.Text = "Successfully selected " + menuName;
+                successText.FontSize = 36;
+                successText.MaxWidth = 800;
+                Canvas.SetTop(successText, 250);
+                canvas.Children.Add(successText);
+
+                DispatcherTimer dispTimer = new DispatcherTimer();
+                dispTimer.Tick += new EventHandler(dispTimer_Tick);
+                dispTimer.Interval = new TimeSpan(0, 0, 2);
+                dispTimer.Start();
             }
+            else
+            {
+                foreach (MenuItem mi in menuLoaded.menuItems)
+                {
+                    TouchButton tb = new TouchButton(mi);
+                    Canvas.SetLeft(tb, mi.getUpperLeft().X);
+                    Canvas.SetTop(tb, mi.getUpperLeft().Y);
+                    canvas.Children.Add(tb);
+                }
+            }
+            return;
+        }
+
+        private void dispTimer_Tick(object sender, EventArgs e)
+        {
+            this.Visibility = System.Windows.Visibility.Visible;
+            (sender as DispatcherTimer).Stop();
+            canvas.Children.Remove(canvas.Children.OfType<TextBlock>().First<TextBlock>());
+            drawMenu("root");
             return;
         }
 
         public event RoutedEventHandler MenuLoad
         {
-            add { AddHandler(MenuLoadEvent, value); } 
+            add { AddHandler(MenuLoadEvent, value); }
             remove { RemoveHandler(MenuLoadEvent, value); }
         }
 
@@ -75,6 +100,7 @@ namespace KinectExperiment
             Trace.WriteLine(e.Source.GetType());
             if (e.Source is TouchButton)
             {
+                // First, clear the existing TouchButtons
                 List<UIElement> toRemove = new List<UIElement>();
                 foreach (UIElement uie in canvas.Children)
                 {
@@ -166,18 +192,22 @@ namespace KinectExperiment
 
         TouchButton currentlySelected = null;
 
-        TouchButton getHit(Point handPoint) {
-          TouchButton hit = null;
+        TouchButton getHit(Point handPoint)
+        {
+            TouchButton hit = null;
 
-          foreach (UIElement uie in canvas.Children) {
-            if (uie is TouchButton) {
-                if ((TouchButton)uie.isIntersecting(handPoint)) {
-                    hit = uie;
+            foreach (UIElement uie in canvas.Children)
+            {
+                if (uie is TouchButton)
+                {
+                    TouchButton tb = (TouchButton)uie;
+                    if (tb.isIntersecting(handPoint))
+                    {
+                        hit = tb;
+                    }
                 }
             }
-          }
-
-          return hit;
+            return hit;
         }
 
         void nui_SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
@@ -192,12 +222,12 @@ namespace KinectExperiment
                     int xpos = (int)(2.0 * ((hand.Position.X + 1.0) * 400.0 - 200.0));
                     if (xpos > 780) { xpos = 780; }
                     else if (xpos < 20) { xpos = 20; }
-                    int ypos = (int)(600.0-2.0 * ((hand.Position.Y + 1.0) * 300.0 - 150.0));
+                    int ypos = (int)(600.0 - 2.0 * ((hand.Position.Y + 1.0) * 300.0 - 150.0));
                     if (ypos > 580) { ypos = 580; }
                     else if (ypos < 20) { ypos = 20; }
-                    
-                    Canvas.SetLeft(pointer, xpos-20);
-                    Canvas.SetTop(pointer, ypos-20);
+
+                    Canvas.SetLeft(pointer, xpos - 20);
+                    Canvas.SetTop(pointer, ypos - 20);
 
                     Point handPoint = new Point(xpos, ypos);
 
@@ -206,7 +236,7 @@ namespace KinectExperiment
                     if (hit != null)
                     {
                         TouchButton hitTB = (TouchButton)hit;
-                        if (!Object.ReferenceEquals(hitTB,currentlySelected))
+                        if (!Object.ReferenceEquals(hitTB, currentlySelected))
                         {
                             if (currentlySelected != null)
                             {
@@ -226,4 +256,5 @@ namespace KinectExperiment
             }
         }
     }
+    
 }

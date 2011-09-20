@@ -13,3 +13,18 @@ C:\Users\Steve\Documents\Visual Studio 2010\Projects\KinectExperiment\KinectExpe
 C:\Users\Steve\Documents\Visual Studio 2010\Projects\KinectExperiment\KinectExperiment\obj\x86\Debug\KinectExperiment.pdb
 C:\Users\Steve\Documents\Visual Studio 2010\Projects\KinectExperiment\KinectExperiment\obj\x86\Debug\TouchButton.baml
 C:\Users\Steve\Documents\Visual Studio 2010\Projects\KinectExperiment\KinectExperiment\obj\x86\Debug\TouchButton.g.cs
+C:\Users\Steve\Documents\kinect\KinectExperiment\obj\x86\Debug\KinectExperiment.exe
+C:\Users\Steve\Documents\kinect\KinectExperiment\obj\x86\Debug\KinectExperiment.pdb
+C:\Users\Steve\Documents\kinect\KinectExperiment\bin\Debug\KinectExperiment.exe
+C:\Users\Steve\Documents\kinect\KinectExperiment\bin\Debug\KinectExperiment.pdb
+C:\Users\Steve\Documents\kinect\KinectExperiment\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Steve\Documents\kinect\KinectExperiment\obj\x86\Debug\MainWindow.baml
+C:\Users\Steve\Documents\kinect\KinectExperiment\obj\x86\Debug\TouchButton.baml
+C:\Users\Steve\Documents\kinect\KinectExperiment\obj\x86\Debug\MainWindow.g.cs
+C:\Users\Steve\Documents\kinect\KinectExperiment\obj\x86\Debug\TouchButton.g.cs
+C:\Users\Steve\Documents\kinect\KinectExperiment\obj\x86\Debug\App.g.cs
+C:\Users\Steve\Documents\kinect\KinectExperiment\obj\x86\Debug\KinectExperiment_MarkupCompile.cache
+C:\Users\Steve\Documents\kinect\KinectExperiment\obj\x86\Debug\KinectExperiment.g.resources
+C:\Users\Steve\Documents\kinect\KinectExperiment\obj\x86\Debug\KinectExperiment.Properties.Resources.resources
+C:\Users\Steve\Documents\kinect\KinectExperiment\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Steve\Documents\kinect\KinectExperiment\obj\x86\Debug\GenerateResource.write.1.tlog

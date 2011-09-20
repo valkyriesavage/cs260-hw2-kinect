@@ -40,9 +40,6 @@ namespace KinectExperiment
             img.UriSource = new Uri("menuicons/" + mi.icon, UriKind.Relative);
             img.EndInit();
             rect.Source = img;
-            border.Fill = Brushes.Black;
-            border.Stroke = Brushes.White;
-            border.StrokeThickness = 19;
         }
 
         public event RoutedEventHandler HandEnter
@@ -74,17 +71,13 @@ namespace KinectExperiment
 
         private void fade()
         {
-
             myStoryBoard.Begin(this, true);
-
-            //border.BeginAnimation(Rectangle.StrokeThicknessProperty, anima);
         }
 
         private void select(Object sender, EventArgs e)
         {
             if (pointOn)
             {
-                //rect.Fill = Brushes.Brown;
                 RaiseEvent(new RoutedEventArgs(MainWindow.MenuLoadEvent, this));
             }
         }
@@ -100,10 +93,9 @@ namespace KinectExperiment
             rect.Source = img;
 
             pointOn = false;
-            border.Fill = Brushes.White;
         }
 
-        public boolean isIntersecting (Point p) {
+        public bool isIntersecting (Point p) {
             return this.menuItem.isIntersecting(p);
         }
 
@@ -121,7 +113,6 @@ namespace KinectExperiment
             anima.FillBehavior = FillBehavior.HoldEnd;
             anima.Completed += new EventHandler(select);
 
-            
             Storyboard.SetTargetName(anima, "border");
             Storyboard.SetTargetProperty(anima, new PropertyPath(Rectangle.StrokeThicknessProperty));
             myStoryBoard = new Storyboard();
