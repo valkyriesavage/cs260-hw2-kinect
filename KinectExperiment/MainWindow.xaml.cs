@@ -1,4 +1,10 @@
-﻿using System;
+﻿/* (c) 2011 - Valkyrie Savage and Steve Rubin
+ * Kinect 2D menu interface
+ * Navigate the menu using your hand.
+ * Rest your hand over a menu item for 1.5 seconds to select it.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,12 +23,13 @@ using System.Windows.Threading;
 
 namespace KinectExperiment
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
     public partial class MainWindow : Window
     {
+        // represents the user's hand on-screen
         Ellipse pointer = new Ellipse();
+
+        TouchButton currentlySelected = null;
 
         public MainWindow()
         {
@@ -39,16 +46,12 @@ namespace KinectExperiment
         Runtime nui;
         DateTime lastTime = DateTime.MaxValue;
 
-        const int RED_IDX = 2;
-        const int GREEN_IDX = 1;
-        const int BLUE_IDX = 0;
-        byte[] depthFrame32 = new byte[320 * 240 * 4];
-
         public static readonly RoutedEvent MenuLoadEvent = EventManager.RegisterRoutedEvent(
             "MenuLoad", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(MainWindow));
 
         List<TouchButton> tbs = new List<TouchButton>();
 
+        // Draw a menu given by menuName
         private void drawMenu(string menuName)
         {
             Menu menuLoaded = new Menu(menuName);
@@ -80,6 +83,7 @@ namespace KinectExperiment
             return;
         }
 
+        // Show selected leaves in the menu tree
         private void dispTimer_Tick(object sender, EventArgs e)
         {
             this.Visibility = System.Windows.Visibility.Visible;
@@ -129,6 +133,8 @@ namespace KinectExperiment
             return;
         }
 
+        // This code is based off of code in the Kinect SDK skeletal tracking
+        // tutorial/documentation
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             canvas.Children.Add(pointer);
@@ -136,8 +142,7 @@ namespace KinectExperiment
             nui = new Runtime();
             try
             {
-                nui.Initialize(RuntimeOptions.UseDepthAndPlayerIndex |
-                    RuntimeOptions.UseSkeletalTracking |
+                nui.Initialize(RuntimeOptions.UseSkeletalTracking | 
                     RuntimeOptions.UseColor);
             }
 
@@ -150,8 +155,6 @@ namespace KinectExperiment
             {
                 nui.VideoStream.Open(ImageStreamType.Video, 2,
                     ImageResolution.Resolution640x480, ImageType.Color);
-                nui.DepthStream.Open(ImageStreamType.Depth, 2,
-                    ImageResolution.Resolution320x240, ImageType.DepthAndPlayerIndex);
             }
 
             catch (InvalidOperationException)
@@ -162,7 +165,8 @@ namespace KinectExperiment
 
             nui.SkeletonEngine.TransformSmooth = true;
 
-            //Use to transform and reduce jitter
+            // Use to transform and reduce jitter
+            // (this code is from an online tutorial)
             var parameters = new TransformSmoothParameters
             {
                 Smoothing = 0.75f,
@@ -190,21 +194,15 @@ namespace KinectExperiment
                 Image.Bits, Image.Width * Image.BytesPerPixel);
         }
 
-        TouchButton currentlySelected = null;
-
         TouchButton getHit(Point handPoint)
         {
             TouchButton hit = null;
 
-            foreach (UIElement uie in canvas.Children)
+            foreach (TouchButton tb in canvas.Children.OfType<TouchButton>())
             {
-                if (uie is TouchButton)
+                if (tb.isIntersecting(handPoint))
                 {
-                    TouchButton tb = (TouchButton)uie;
-                    if (tb.isIntersecting(handPoint))
-                    {
-                        hit = tb;
-                    }
+                    hit = tb;
                 }
             }
             return hit;
@@ -219,6 +217,10 @@ namespace KinectExperiment
                 if (SkeletonTrackingState.Tracked == data.TrackingState)
                 {
                     Joint hand = data.Joints[JointID.HandRight];
+
+                    // Adjust the coordinates so we don't have to stretch to the
+                    // extremes of the Kinect's view in order to reach the extreme
+                    // menu items.
                     int xpos = (int)(2.0 * ((hand.Position.X + 1.0) * 400.0 - 200.0));
                     if (xpos > 780) { xpos = 780; }
                     else if (xpos < 20) { xpos = 20; }
@@ -230,7 +232,6 @@ namespace KinectExperiment
                     Canvas.SetTop(pointer, ypos - 20);
 
                     Point handPoint = new Point(xpos, ypos);
-
                     TouchButton hit = getHit(handPoint);
 
                     if (hit != null)
@@ -248,13 +249,11 @@ namespace KinectExperiment
                     }
                     else
                     {
-                        Trace.WriteLine(handPoint);
                         if (currentlySelected != null) { currentlySelected.RaiseEvent(new RoutedEventArgs(TouchButton.HandLeaveEvent)); }
                         currentlySelected = null;
                     }
                 }
             }
         }
-    }
-    
+    }   
 }

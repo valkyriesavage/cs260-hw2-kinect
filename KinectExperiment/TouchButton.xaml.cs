@@ -16,14 +16,14 @@ using System.Threading;
 
 namespace KinectExperiment
 {
-    /// <summary>
-    /// Interaction logic for TouchButton.xaml
-    /// </summary>
-
+    // TouchButton is a widget that is loaded with
+    // information about a given menu item
     public partial class TouchButton : UserControl
     {
         bool pointOn = false; // true if pointer is over this box
         public MenuItem menuItem;
+
+        private Storyboard myStoryBoard;
 
         public static readonly RoutedEvent HandEnterEvent = EventManager.RegisterRoutedEvent(
              "HandEnter", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(TouchButton));
@@ -81,8 +81,6 @@ namespace KinectExperiment
             pointOn = true;
             fade();
         }
-
-        private Storyboard myStoryBoard;
 
         private void fade()
         {

@@ -1,7 +1,8 @@
-
 using System.Collections.Generic;
 using System.Windows;
 
+// Menu will build a level of the menu tree
+// given the name of the sub-menu
 public class Menu {
   private bool leaf = false;
   public string name;
@@ -44,7 +45,7 @@ public class Menu {
       menuItems.Add(new MenuItem("nevermind", "nevermind.jpg", "nevermindselected.jpg", menuItems.Count, "root"));
       menuItems.Add(new MenuItem("rolling stones", "rollingstones.jpg", "rollingstonesselected.jpg", menuItems.Count, "root"));
       menuItems.Add(new MenuItem("back", "back.jpg", "backselected.jpg", menuItems.Count, "root"));
-    } else if (name == "abbeyroad") {
+    } else if (name == "abbey road") {
       menuItems.Add(new MenuItem("Come Together", menuItems.Count));
       menuItems.Add(new MenuItem("Something", menuItems.Count));
       menuItems.Add(new MenuItem("Maxwells Silver Hammer", menuItems.Count));
@@ -52,7 +53,7 @@ public class Menu {
       menuItems.Add(new MenuItem("Octopus Garden", menuItems.Count));
       menuItems.Add(new MenuItem("I Want You", menuItems.Count));
       menuItems.Add(new MenuItem("back", "back.jpg", "backselected.jpg", menuItems.Count, "music"));
-    } else if (name == "darksideofthemoon") {
+    } else if (name == "dark side of the moon") {
       menuItems.Add(new MenuItem("Speak to Me", menuItems.Count));
       menuItems.Add(new MenuItem("Breathe", menuItems.Count));
       menuItems.Add(new MenuItem("On the Run", menuItems.Count));
@@ -69,7 +70,7 @@ public class Menu {
       menuItems.Add(new MenuItem("On a Plain", menuItems.Count));
       menuItems.Add(new MenuItem("Endless, Nameless", menuItems.Count));
       menuItems.Add(new MenuItem("back", "back.jpg", "backselected.jpg", menuItems.Count, "music"));
-    } else if (name == "rollingstones") {
+    } else if (name == "rolling stones") {
       menuItems.Add(new MenuItem("Rocks Off", menuItems.Count));
       menuItems.Add(new MenuItem("Shake Your Hips", menuItems.Count));
       menuItems.Add(new MenuItem("Casino Boogie", menuItems.Count));
@@ -88,6 +89,8 @@ public class Menu {
   }
 }
 
+// MenuItem gives us access to the positioning and 
+// some properties of each menu items
 public class MenuItem
 {
   static int WIDTH = 226;
@@ -111,7 +114,8 @@ public class MenuItem
     chooseDrawLocation();
   }
 
-  public MenuItem(string name, string icon, string selectedIcon, int order, string previousMenu) {
+  public MenuItem(string name, string icon, string selectedIcon, 
+      int order, string previousMenu) {
     this.name = name;
     this.icon = icon;
     this.selectedIcon = selectedIcon;
@@ -122,7 +126,8 @@ public class MenuItem
   }
 
   public bool isIntersecting(Point p) {
-    return ((p.X > upperLeft.X) && (p.X < upperLeft.X + WIDTH)) && ((p.Y > upperLeft.Y) && (p.Y < upperLeft.Y + HEIGHT));
+    return ((p.X > upperLeft.X) && (p.X < upperLeft.X + WIDTH)) 
+        && ((p.Y > upperLeft.Y) && (p.Y < upperLeft.Y + HEIGHT));
   }
 
   private void chooseDrawLocation() {
